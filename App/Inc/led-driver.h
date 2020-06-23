@@ -1,10 +1,9 @@
 #ifndef INC_LED_DRIVER_H_
 #define INC_LED_DRIVER_H_
 
-#include <stdint.h>
-#include <stdbool.h>
+// HAL knihovny
 #include "stm32h7xx_hal.h"
-
+// Core knihovny
 #include "main.h"
 
 void led1_on(void);
