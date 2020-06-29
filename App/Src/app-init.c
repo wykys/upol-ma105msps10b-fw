@@ -11,15 +11,18 @@ void app_init(void)
     oscilator_on();
     spi_init(&hspi4);
 
+    HAL_Delay(1000);
+
     for (uint32_t i = 0; i < SPI_BUFFER_SIZE; i++)
     {
-        spi_buffer_tx[i] = i+1;
+        spi_buffer_tx[i] = i + 1;
     }
 
     while (true)
     {
         led1_toggle();
         spi_trx(33);
-        HAL_Delay(1);
+        while (!spi_is_ready())
+            ;
     }
 }

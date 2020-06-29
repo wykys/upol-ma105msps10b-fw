@@ -26,5 +26,14 @@ void spi_init(SPI_HandleTypeDef *hspi_p)
  */
 inline void spi_trx(uint32_t size)
 {
-    HAL_SPI_TransmitReceive_DMA(spi_config.hspi_p, (uint8_t *)spi_buffer_tx, (uint8_t *) spi_buffer_rx, size);
+    HAL_SPI_TransmitReceive_DMA(spi_config.hspi_p, (uint8_t *) spi_buffer_tx, (uint8_t *) spi_buffer_rx, size);
+}
+
+/**
+ * Informace o připravensti SPI.
+ * @retval true - pokud je SPI připraveno.
+ */
+inline bool spi_is_ready(void)
+{
+    return (bool) (spi_config.hspi_p->State == HAL_SPI_STATE_READY);
 }
