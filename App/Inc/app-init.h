@@ -13,6 +13,7 @@
 #include "clock-driver.h"
 #include "led-driver.h"
 #include "spi-driver.h"
+#include "spi-protocol.h"
 
 void app_init(void);
 
