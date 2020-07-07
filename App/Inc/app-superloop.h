@@ -1,24 +1,21 @@
-#ifndef INC_APP_INIT_H_
-#define INC_APP_INIT_H_
+#ifndef INC_APP_SUPERLOOP_H_
+#define INC_APP_SUPERLOOP_H_
 
 // Standardní knihovny
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdio.h>
+#include <string.h>
 // HAL knihovny
 #include "stm32h7xx_hal.h"
-// Core knihovny
-#include "main.h"
-#include "spi.h"
-#include "usart.h"
 // App knihovny
 #include "clock-driver.h"
 #include "led-driver.h"
 #include "spi-driver.h"
 #include "spi-protocol.h"
 #include "ftdi-driver.h"
-#include "app-superloop.h"
+#include "ftdi-protocol.h"
 
-void app_init(void);
+void app_superloop(void);
+void uart_command_decoder(uint8_t data);
 
-#endif/* INC_APP_INIT_H_ */
+#endif/* INC_APP_SUPERLOOP_H_ */

@@ -12,9 +12,9 @@ void spi_cmd_start_measure(void)
 /**
  * Zastavení měření.
  */
-void spi_cmd_stop_measure(void)
+void spi_cmd_stop(void)
 {
-    spi_buffer_tx[0] = SPI_CMD_MEASUREMENT_STOP;
+    spi_buffer_tx[0] = SPI_CMD_STOP;
     spi_trx(1);
 }
 

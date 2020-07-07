@@ -10,6 +10,7 @@ void app_init(void)
 {
     oscilator_on();
     spi_init(&hspi4);
+    ftdi_init(&huart1, uart_command_decoder);
 
     HAL_Delay(1000);
 
@@ -22,12 +23,5 @@ void app_init(void)
         spi_buffer_rx[i] = 0;
     }
 
-    while (true)
-    {
-        led2_toggle();
-        spi_cmd_get_state();
-        spi_cmd_start_measure();
-        while (!spi_cmd_get_state());
-        spi_cmd_memory_read(0, 10);
-    }
-} /* app_init */
+    app_superloop();
+}

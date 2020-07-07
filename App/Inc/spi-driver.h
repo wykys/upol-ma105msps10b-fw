@@ -9,7 +9,7 @@
 // Core knihovny
 #include "main.h"
 
-#define SPI_BUFFER_SIZE 2048 // velikost SPI bufferů
+#define SPI_BUFFER_SIZE (2048 + 3) // velikost SPI bufferů
 
 extern volatile uint8_t spi_buffer_tx[SPI_BUFFER_SIZE]; // Vysílací buffer.
 extern volatile uint8_t spi_buffer_rx[SPI_BUFFER_SIZE]; // Přijímací buffer.
