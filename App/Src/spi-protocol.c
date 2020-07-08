@@ -36,9 +36,9 @@ void spi_cmd_memory_read(uint16_t address, uint16_t size)
  * Zmače obsah SRAM zapsanám 0 do
  * celého adresního rozsahu paměti.
  */
-void spi_cmd_memory_clear(void)
+void spi_cmd_memory_erase(void)
 {
-    spi_buffer_tx[0] = SPI_CMD_MEMORY_CLEAR;
+    spi_buffer_tx[0] = SPI_CMD_MEMORY_ERASE;
     spi_trx(1);
 }
 

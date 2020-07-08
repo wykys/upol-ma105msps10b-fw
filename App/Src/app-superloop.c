@@ -3,7 +3,8 @@
 typedef enum {
     CMD_UNKNOW,
     CMD_START,
-    CMD_CLEAR
+    CMD_ERASE,
+    CMD_READ
 } cmd_t;
 
 volatile cmd_t cmd;
@@ -26,9 +27,13 @@ inline void uart_command_decoder(uint8_t data)
         {
             cmd = CMD_START;
         }
-        else if (!strcmp((const char *) buffer, "MEMORY CLEAR"))
+        else if (!strcmp((const char *) buffer, "MEMORY ERASE"))
         {
-            cmd = CMD_CLEAR;
+            cmd = CMD_ERASE;
+        }
+        else if (!strcmp((const char *) buffer, "MEMORY READ"))
+        {
+            cmd = CMD_READ;
         }
         else
         {
@@ -43,7 +48,7 @@ inline void uart_command_decoder(uint8_t data)
             i = 0;
         }
     }
-}
+} /* uart_command_decoder */
 
 /**
  * Hlavní aplikační nekoneční smyčka.
@@ -85,9 +90,25 @@ void app_superloop(void)
                 led4_off();
                 break;
 
-            case CMD_CLEAR:
+            case CMD_ERASE:
                 ftdi_cmd_ok();
-                spi_cmd_memory_clear();
+                spi_cmd_memory_erase();
+                break;
+
+            case CMD_READ:
+                while (!spi_cmd_get_state())
+                    ;
+                spi_cmd_memory_read(0, 1024);
+                spi_cmd_stop();
+                ftdi_cmd_data_begin();
+                for (uint16_t i = 0; i < 1024; i++)
+                {
+                    uint8_t data_h = spi_buffer_rx[3 + i * 2];
+                    uint8_t data_l = spi_buffer_rx[4 + i * 2];
+                    uint16_t data  = (((uint16_t) data_h) << 8) | data_l;
+                    ftdi_cmd_data(data);
+                }
+                ftdi_cmd_data_end();
                 break;
 
             default:
