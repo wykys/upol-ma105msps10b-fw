@@ -77,7 +77,7 @@ inline void led1_toggle(void)
  */
 inline void led2_toggle(void)
 {
-    HAL_GPIO_TogglePin(DEBUG_LED1_GPIO_Port, DEBUG_LED1_Pin);
+    HAL_GPIO_TogglePin(DEBUG_LED2_GPIO_Port, DEBUG_LED2_Pin);
 }
 
 /**
@@ -85,7 +85,7 @@ inline void led2_toggle(void)
  */
 inline void led3_toggle(void)
 {
-    HAL_GPIO_TogglePin(DEBUG_LED1_GPIO_Port, DEBUG_LED1_Pin);
+    HAL_GPIO_TogglePin(DEBUG_LED3_GPIO_Port, DEBUG_LED3_Pin);
 }
 
 /**
@@ -93,5 +93,5 @@ inline void led3_toggle(void)
  */
 inline void led4_toggle(void)
 {
-    HAL_GPIO_TogglePin(DEBUG_LED1_GPIO_Port, DEBUG_LED1_Pin);
+    HAL_GPIO_TogglePin(DEBUG_LED4_GPIO_Port, DEBUG_LED4_Pin);
 }
