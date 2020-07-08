@@ -20,6 +20,6 @@ void spi_cmd_stop(void);
 uint8_t spi_cmd_get_state(void);
 void spi_cmd_memory_erase(void);
 void spi_cmd_memory_read(uint16_t address, uint16_t size);
-void spi_cmd_start_measure(void);
+void spi_cmd_measurement_start(void);
 
 #endif/* INC_SPI_PROTOCOL_H_ */

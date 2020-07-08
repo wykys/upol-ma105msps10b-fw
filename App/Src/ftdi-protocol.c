@@ -44,3 +44,20 @@ void ftdi_cmd_data(uint32_t data)
     sprintf(str, "%u"FTDI_EOL, (unsigned int) data);
     ftdi_tx_str(str);
 }
+
+/**
+ * Odešle stav zařízení.
+ * @param state 0x00 - zaneprázdněno
+ *              0x01 - připraveno
+ */
+inline void ftdi_cmd_get_state(uint8_t state)
+{
+    if (state)
+    {
+        ftdi_cmd("READY");
+    }
+    else
+    {
+        ftdi_cmd("BUSY");
+    }
+}

@@ -15,5 +15,6 @@ void ftdi_cmd_error(void);
 void ftdi_cmd_data_begin(void);
 void ftdi_cmd_data_end(void);
 void ftdi_cmd_data(uint32_t data);
+void ftdi_cmd_get_state(uint8_t state);
 
 #endif/* INC_FTDI_PROTOCOL_H_ */

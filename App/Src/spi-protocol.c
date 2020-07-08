@@ -3,7 +3,7 @@
 /**
  * Zahájení měření.
  */
-void spi_cmd_start_measure(void)
+void spi_cmd_measurement_start(void)
 {
     spi_buffer_tx[0] = SPI_CMD_MEASUREMENT_START;
     spi_trx(1);
