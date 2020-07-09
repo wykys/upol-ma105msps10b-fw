@@ -102,7 +102,6 @@ void app_superloop(void)
             case CMD_MEMORY_READ:
                 ftdi_cmd_ok();
                 spi_cmd_memory_read(0, 1024);
-                spi_cmd_stop();
                 ftdi_cmd_data_begin();
                 for (uint16_t i = 0; i < 1024; i++)
                 {
