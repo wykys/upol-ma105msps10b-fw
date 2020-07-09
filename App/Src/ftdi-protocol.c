@@ -47,8 +47,7 @@ void ftdi_cmd_data(uint32_t data)
 
 /**
  * Odešle stav zařízení.
- * @param state 0x00 - zaneprázdněno
- *              0x01 - připraveno
+ * @param state satav je definován v spi_state_t.
  */
 inline void ftdi_cmd_get_state(uint8_t state)
 {
