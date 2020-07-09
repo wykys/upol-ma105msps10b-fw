@@ -16,6 +16,14 @@ typedef enum {
     SPI_CMD_MEASUREMENT_START = 0x05
 } spi_protocol_t;
 
+typedef enum {
+    SPI_DEV_STATE_READY       = 0x00,
+    SPI_DEV_STATE_READ        = 0x01,
+    SPI_DEV_STATE_ERASE       = 0x02,
+    SPI_DEV_STATE_MEASUREMENT = 0x03
+} spi_state_t;
+
+
 void spi_cmd_stop(void);
 uint8_t spi_cmd_get_state(void);
 void spi_cmd_memory_erase(void);

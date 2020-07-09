@@ -3,7 +3,7 @@
 /**
  * Zahájení měření.
  */
-void spi_cmd_measurement_start(void)
+inline void spi_cmd_measurement_start(void)
 {
     spi_buffer_tx[0] = SPI_CMD_MEASUREMENT_START;
     spi_trx(1);
@@ -12,7 +12,7 @@ void spi_cmd_measurement_start(void)
 /**
  * Zastavení měření.
  */
-void spi_cmd_stop(void)
+inline void spi_cmd_stop(void)
 {
     spi_buffer_tx[0] = SPI_CMD_STOP;
     spi_trx(1);
@@ -23,9 +23,8 @@ void spi_cmd_stop(void)
  * @param address - počáteční adresa
  * @param size - počet addres, které mají být přečteny
  */
-void spi_cmd_memory_read(uint16_t address, uint16_t size)
+inline void spi_cmd_memory_read(uint16_t address, uint16_t size)
 {
-    // TODO: dodělat kontrolu adresního rozsahu!
     spi_buffer_tx[0] = SPI_CMD_MEMORY_READ;
     spi_buffer_tx[1] = (address & 0xFF00) >> 8;
     spi_buffer_tx[2] = address & 0xFF;
@@ -36,7 +35,7 @@ void spi_cmd_memory_read(uint16_t address, uint16_t size)
  * Zmače obsah SRAM zapsanám 0 do
  * celého adresního rozsahu paměti.
  */
-void spi_cmd_memory_erase(void)
+inline void spi_cmd_memory_erase(void)
 {
     spi_buffer_tx[0] = SPI_CMD_MEMORY_ERASE;
     spi_trx(1);
@@ -44,10 +43,9 @@ void spi_cmd_memory_erase(void)
 
 /**
  * Vyčte stav zařízení.
- * @retval 0x00 - zaneprázdněno
- *         0x01 - připraveno
+ * @retval hodnota odpovídající stavu zařízení definovaného v spi_state_t.
  */
-uint8_t spi_cmd_get_state(void)
+inline uint8_t spi_cmd_get_state(void)
 {
     spi_buffer_tx[0] = SPI_CMD_GET_STATE;
     spi_trx(2);

@@ -6,6 +6,7 @@
 #include <stdio.h>
 // App knihovny
 #include "ftdi-driver.h"
+#include "spi-protocol.h"
 
 #define FTDI_EOL "\r\n"                         // Ukončení řádku.
 #define ftdi_cmd(CMD) ftdi_tx_str(CMD FTDI_EOL) // Odeslání příkazu s korektním ukončením řádku.

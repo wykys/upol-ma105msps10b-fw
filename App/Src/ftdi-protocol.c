@@ -52,12 +52,22 @@ void ftdi_cmd_data(uint32_t data)
  */
 inline void ftdi_cmd_get_state(uint8_t state)
 {
-    if (state)
+    switch (state)
     {
-        ftdi_cmd("READY");
-    }
-    else
-    {
-        ftdi_cmd("BUSY");
+        case SPI_DEV_STATE_READ:
+            ftdi_cmd("READ");
+            break;
+
+        case SPI_DEV_STATE_ERASE:
+            ftdi_cmd("ERASE");
+            break;
+
+        case SPI_DEV_STATE_MEASUREMENT:
+            ftdi_cmd("MEASUREMENT");
+            break;
+
+        default:
+            ftdi_cmd("READY");
+            break;
     }
 }
