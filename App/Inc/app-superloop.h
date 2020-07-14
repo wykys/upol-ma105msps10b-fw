@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdio.h>
 // HAL knihovny
 #include "stm32h7xx_hal.h"
 // App knihovny

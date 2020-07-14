@@ -6,11 +6,28 @@ typedef enum {
     CMD_MEASUREMENT_STOP,
     CMD_MEMORY_ERASE,
     CMD_MEMORY_READ,
-    CMD_GET_STATE
+    CMD_GET_STATE,
+    CMD_SET_RISING_LEVEL,
+    CMD_SET_FALLING_LEVEL
 } cmd_t;
 
 volatile cmd_t cmd;
+volatile uint32_t tmp;
 volatile bool flag_new_command;
+
+/**
+ * Dekóduje číslo v desítkové soustavě s řetězce.
+ * @param str ukazatel na začátek řetezce.
+ * @retval true - pokud je dekódování úspěšné, jinak false.
+ */
+inline bool decode_number(uint8_t *str)
+{
+    if (sscanf((const char *) str, "%u", (unsigned int *) &tmp) == 1)
+    {
+        return true;
+    }
+    return false;
+}
 
 /**
  * Zpracovává přijímaná data z UARTu a dekóduje příkazy.
@@ -24,7 +41,7 @@ inline void uart_command_decoder(uint8_t data)
     if (data == '\n' || data == '\r')
     {
         flag_new_command = true;
-        buffer[i]        = 0;
+        buffer[i]        = '\0';
         i = 0;
         if (!strcmp((const char *) buffer, "MEASUREMENT START"))
         {
@@ -45,6 +62,28 @@ inline void uart_command_decoder(uint8_t data)
         else if (!strcmp((const char *) buffer, "GET STATE"))
         {
             cmd = CMD_GET_STATE;
+        }
+        else if (!strncmp((const char *) buffer, "SET RISING LEVEL ", 17))
+        {
+            if (decode_number(&buffer[17]))
+            {
+                cmd = CMD_SET_RISING_LEVEL;
+            }
+            else
+            {
+                cmd = CMD_UNKNOW;
+            }
+        }
+        else if (!strncmp((const char *) buffer, "SET FALLING LEVEL ", 18))
+        {
+            if (decode_number(&buffer[18]))
+            {
+                cmd = CMD_SET_FALLING_LEVEL;
+            }
+            else
+            {
+                cmd = CMD_UNKNOW;
+            }
         }
         else
         {
@@ -111,6 +150,16 @@ void app_superloop(void)
                     ftdi_cmd_data(data);
                 }
                 ftdi_cmd_data_end();
+                break;
+
+            case CMD_SET_RISING_LEVEL:
+                ftdi_cmd_ok();
+                spi_set_rising_level(tmp & 0xFFFF);
+                break;
+
+            case CMD_SET_FALLING_LEVEL:
+                ftdi_cmd_ok();
+                spi_set_falling_level(tmp & 0xFFFF);
                 break;
 
             default:

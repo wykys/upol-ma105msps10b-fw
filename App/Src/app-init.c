@@ -23,5 +23,8 @@ void app_init(void)
         spi_buffer_rx[i] = 0;
     }
 
+    spi_set_rising_level(600);
+    spi_set_falling_level(600);
+
     app_superloop();
 }

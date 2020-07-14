@@ -32,7 +32,7 @@ inline void spi_cmd_memory_read(uint16_t address, uint16_t size)
 }
 
 /**
- * Zmače obsah SRAM zapsanám 0 do
+ * Smaže obsah SRAM zapsanám 0 do
  * celého adresního rozsahu paměti.
  */
 inline void spi_cmd_memory_erase(void)
@@ -50,4 +50,28 @@ inline uint8_t spi_cmd_get_state(void)
     spi_buffer_tx[0] = SPI_CMD_GET_STATE;
     spi_trx(2);
     return spi_buffer_rx[1];
+}
+
+/**
+ * Nastaví komparační úroveň pro náběžnou hranu.
+ * @param level prahová úroveň.
+ */
+inline void spi_set_rising_level(uint16_t level)
+{
+    spi_buffer_tx[0] = SPI_CMD_SET_RISING_LEVEL;
+    spi_buffer_tx[1] = (level >> 8) & 0xFF;
+    spi_buffer_tx[2] = level & 0xFF;
+    spi_trx(3);
+}
+
+/**
+ * Nastaví komparační úroveň pro náběžnou sestupnou hranu.
+ * @param level prahová úroveň.
+ */
+inline void spi_set_falling_level(uint16_t level)
+{
+    spi_buffer_tx[0] = SPI_CMD_SET_FALLING_LEVEL;
+    spi_buffer_tx[1] = (level >> 8) & 0xFF;
+    spi_buffer_tx[2] = level & 0xFF;
+    spi_trx(3);
 }
